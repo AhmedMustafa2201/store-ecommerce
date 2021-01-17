@@ -17,7 +17,8 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/';
+    public const ADMIN = '/admin';
 
     /**
      * The controller namespace for the application.
@@ -26,7 +27,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-    // protected $namespace = 'App\\Http\\Controllers';
+    protected $namespace = 'App\\Http\\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -46,8 +47,80 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
+            Route::prefix('admin')
+                ->middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/admin.php'));
         });
     }
+
+        /**
+     * Define the routes for the application.
+     *
+     * @return void
+     */
+    // public function map()
+    // {
+    //     $this->mapApiRoutes();
+
+    //     $this->mapWebRoutes();
+
+    //     $this->mapAdminRoutes();
+
+    //     // $this->mapCollRoutes();
+
+    //     //
+    // }
+
+
+    /**
+     * Define the "web" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    // protected function mapWebRoutes()
+    // {
+    //     Route::middleware('web')
+    //         ->namespace($this->namespace)
+    //         ->group(base_path('routes/web.php'));
+    // }
+
+    // protected function mapAdminRoutes()
+    // {
+    //     Route::prefix('admin')
+    //         ->middleware('web')
+    //         ->namespace($this->namespace)
+    //         ->group(base_path('routes/admin.php'));
+    // }
+
+
+
+    // protected function mapCollRoutes()
+    // {
+    //     Route::middleware('web')
+    //         ->namespace($this->namespace)
+    //         ->group(base_path('routes/coll.php'));
+    // }
+
+
+
+    /**
+     * Define the "api" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    // protected function mapApiRoutes()
+    // {
+    //     Route::prefix('api')
+    //         ->middleware('api')
+    //         ->namespace($this->namespace)
+    //         ->group(base_path('routes/api.php'));
+    // }
 
     /**
      * Configure the rate limiters for the application.
