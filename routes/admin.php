@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,15 +15,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 // note prefix => admin
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){
+
+        Route::group(['namespace' => 'Dashboard','prefix'=> 'admin', 'middleware' => 'guest:admin'], function(){
+            Route::get('login', 'LoginController@login')->name('admin.login');
+            Route::post('login', 'LoginController@postLogin')->name('admin.post.login');
+        
+        });
+        
+        Route::group(['namespace' => 'Dashboard','prefix'=> 'admin', 'middleware' => 'auth:admin'], function(){
+            Route::get('/', 'DashboardController@index')->name('admin.dashboard');
+            // shpping method route
+            Route::group(['prefix'=> 'settings'],function(){
+                Route::get('shpping-method/{type}','SettingsController@edit_shpping')->name('edit.shpping.method');
+                Route::PUT('shpping-method/{id}','SettingsController@update_shpping')->name('update.shpping.method');
+            });
+        });
+        
+    });
 
 
-Route::group(['namespace' => 'Dashboard', 'middleware' => 'guest:admin'], function(){
-    Route::get('login', 'LoginController@login')->name('admin.login');
-    Route::post('login', 'LoginController@postLogin')->name('admin.post.login');
 
-});
 
-Route::group(['namespace' => 'Dashboard', 'middleware' => 'auth:admin'], function(){
-    Route::get('/', 'DashboardController@index')->name('admin.dashboard');
-
-});

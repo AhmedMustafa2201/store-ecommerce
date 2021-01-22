@@ -38,10 +38,11 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
-        }
+            "App\\": "app/"
+        },
+        "files": [
+            "app/Helpers/generals.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -63,3 +64,4 @@
         ]
     }
 }
+

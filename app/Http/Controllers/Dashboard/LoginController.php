@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\Dashbord\AdminLoginRequest;
 // use App\Models\Admin;
 // use Illuminate\Support\Facades\Auth;
 
@@ -14,14 +14,10 @@ class LoginController extends Controller
         return view('dashboard.auth.login');
     }
 
-    public function postLogin(LoginRequest $request){
+    public function postLogin(AdminLoginRequest $request){
         // validation
         // check
-    //    $admin = Auth('admin')->check();
-    //    return $admin;
         $remember_me = $request->has('remember_me') ? true : false;
-        // dd(Auth()->guard('admin')->attempt(['email' => $request->input("email"), 'password' => $request->input("password")], $remember_me));
-        // return var_dump($request->input("password"));
         if (auth()->guard('admin')->attempt(['email' => $request->input("email"), 'password' => $request->input("password")], $remember_me)) {
            // notify()->success('تم الدخول بنجاح  ');
            return redirect()->route('admin.dashboard');
