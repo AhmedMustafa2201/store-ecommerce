@@ -30,6 +30,9 @@ Route::group(
         Route::group(['namespace' => 'Dashboard','prefix'=> 'admin', 'middleware' => 'auth:admin'], function(){
             Route::get('/', 'DashboardController@index')->name('admin.dashboard');
             // shpping method route
+            
+            Route::get('logout', 'LoginController@logout')->name('admin.logout');
+
             Route::group(['prefix'=> 'settings'],function(){
                 Route::get('shpping-method/{type}','SettingsController@edit_shpping')->name('edit.shpping.method');
                 Route::PUT('shpping-method/{id}','SettingsController@update_shpping')->name('update.shpping.method');
