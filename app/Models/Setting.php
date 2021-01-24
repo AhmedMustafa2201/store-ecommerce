@@ -11,6 +11,9 @@ class Setting extends Model
     protected $with = ['translations'];
     protected $translatedAttributes = ['value'];
     protected $fillable = ['key','is_translatable','plain_value'];
+    protected $casts = [
+        'is_translatable'=>'boolean'
+    ];
 
     public static function setMany($setting){
         foreach($setting as $key=>$value){
@@ -27,12 +30,14 @@ class Setting extends Model
         }
         static::updateOrCreate(['key'=>$key,'plain_value'=>$value]);
     }
+
     public static function setTranslatableSetting($setting = []){
         foreach($setting as $key=>$value){
-            static::updateOrCreate(['key'=>$key],[
-                'is_translatable' => true,
-                'value'   => $value
-            ]);
+            static::updateOrCreate(['key'=>$key],
+                [
+                    'is_translatable' => true,
+                    'value'   => $value
+                ]);
         }
     }
 }

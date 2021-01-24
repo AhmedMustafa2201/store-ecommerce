@@ -37,6 +37,11 @@ Route::group(
                 Route::get('shpping-method/{type}','SettingsController@edit_shpping')->name('edit.shpping.method');
                 Route::PUT('shpping-method/{id}','SettingsController@update_shpping')->name('update.shpping.method');
             });
+
+            Route::group(['prefix'=> 'profile'],function(){
+                Route::get('edit','ProfileController@editProfile')->name('edit.profile');
+                Route::PUT('update','ProfileController@updateProfile')->name('update.profile.admin');
+            });
         });
         
     });

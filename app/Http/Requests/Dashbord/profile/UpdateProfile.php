@@ -25,7 +25,7 @@ class UpdateProfile extends FormRequest
     {
         return [
             'name'  => 'required|string',
-            'email' => 'email|unique:admins,email,' . $this->id,
+            'email' => 'required|email|unique:admins,email,' . $this->id,
             'password' => 'nullable|confirmed',
         ];
     }
