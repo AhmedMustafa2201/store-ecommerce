@@ -29,10 +29,10 @@ Route::group(
         
         Route::group(['namespace' => 'Dashboard','prefix'=> 'admin', 'middleware' => 'auth:admin'], function(){
             Route::get('/', 'DashboardController@index')->name('admin.dashboard');
-            // shpping method route
             
             Route::get('logout', 'LoginController@logout')->name('admin.logout');
-
+            
+            // shpping method route
             Route::group(['prefix'=> 'settings'],function(){
                 Route::get('shpping-method/{type}','SettingsController@edit_shpping')->name('edit.shpping.method');
                 Route::PUT('shpping-method/{id}','SettingsController@update_shpping')->name('update.shpping.method');
@@ -41,6 +41,16 @@ Route::group(
             Route::group(['prefix'=> 'profile'],function(){
                 Route::get('edit','ProfileController@editProfile')->name('edit.profile');
                 Route::PUT('update','ProfileController@updateProfile')->name('update.profile.admin');
+            });
+
+            // main categories
+            Route::group(['prefix' => 'mainCategories'],function(){
+                Route::get('/','mainCategoriesController@index')->name('mainCategories.index');
+                Route::get('create','mainCategoriesController@create')->name('mainCategories.create');
+                Route::post('store','mainCategoriesController@store')->name('mainCategories.store');
+                Route::get("edit/{id}","mainCategoriesController@edit")->name("mainCategories.edit");
+                Route::PUT("update/{id}","mainCategoriesController@update")->name("mainCategories.update");
+                Route::get('delete/{id}','mainCategoriesController@destroy')->name('mainCategories.destroy');
             });
         });
         
